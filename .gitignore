@@ -1,0 +1,5 @@
+vendor
+.vscode/
+.idea/
+Testing.php
+Sample.php

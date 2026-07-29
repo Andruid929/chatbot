@@ -1,0 +1,21 @@
+{
+    "name": "druidlabs/druidbot",
+    "description": "Chatbot",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "anthropic-ai/sdk": "^0.40.0",
+        "symfony/http-client": "^8.1",
+        "nyholm/psr7": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "DruidLabs\\DruidBot\\": "src/DruidLabs/DruidBot/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

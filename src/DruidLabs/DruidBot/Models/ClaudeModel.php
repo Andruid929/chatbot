@@ -1,0 +1,52 @@
+<?php
+
+namespace DruidLabs\DruidBot\Models;
+
+/**
+ * Enum ClaudeModel
+ *
+ * Represents the available Anthropic Claude models.
+ */
+enum ClaudeModel: string implements Model
+{
+
+	case CLAUDE_SONNET_5 = 'claude-sonnet-5';
+
+	case CLAUDE_FABLE_5 = 'claude-fable-5';
+
+	case CLAUDE_MYTHOS_5 = 'claude-mythos-5';
+
+	case CLAUDE_OPUS_5 = 'claude-opus-5';
+
+	case CLAUDE_OPUS_4_8 = 'claude-opus-4-8';
+
+	case CLAUDE_OPUS_4_7 = 'claude-opus-4-7';
+
+	case CLAUDE_MYTHOS_PREVIEW = 'claude-mythos-preview';
+
+	case CLAUDE_OPUS_4_6 = 'claude-opus-4-6';
+
+	case CLAUDE_SONNET_4_6 = 'claude-sonnet-4-6';
+
+	case CLAUDE_HAIKU_4_5 = 'claude-haiku-4-5';
+
+	case CLAUDE_HAIKU_4_5_20251001 = 'claude-haiku-4-5-20251001';
+
+	case CLAUDE_OPUS_4_5 = 'claude-opus-4-5';
+
+	case CLAUDE_OPUS_4_5_20251101 = 'claude-opus-4-5-20251101';
+
+	case CLAUDE_SONNET_4_5 = 'claude-sonnet-4-5';
+
+	case CLAUDE_SONNET_4_5_20250929 = 'claude-sonnet-4-5-20250929';
+
+	case CLAUDE_OPUS_4_1 = 'claude-opus-4-1';
+
+	case CLAUDE_OPUS_4_1_20250805 = 'claude-opus-4-1-20250805';
+
+	public function asString(): string
+    {
+		return $this->value;
+	}
+
+}

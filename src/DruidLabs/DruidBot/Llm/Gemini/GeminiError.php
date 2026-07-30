@@ -14,14 +14,19 @@ class GeminiError implements LlmError {
      * @var string The error message.
      */
     private string $message;
+    private string $status;
+
+    private int $code;
 
     /**
      * GeminiError constructor.
      *
-     * @param string $message The error message.
+     * @param array $errorDetail The error object.
      */
-    public function __construct(string $message) {
-        $this->message = $message;
+    public function __construct(array $errorDetail) {
+        $this->message = $errorDetail["message"];
+        $this->status = $errorDetail["status"] ?? "Failed";
+        $this->code = $errorDetail["code"] ?? 0;
     }
 
     /**
@@ -31,5 +36,11 @@ class GeminiError implements LlmError {
      */
     public function message(): string {
         return $this->message;
+    }
+
+    public static function fromJson(string $json): GeminiError {
+        $data = json_decode($json, true);
+
+        return new self($data[0]['error']);
     }
 }

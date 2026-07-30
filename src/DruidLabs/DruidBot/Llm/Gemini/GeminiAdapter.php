@@ -43,10 +43,10 @@ class GeminiAdapter implements LlmAdapter
         }
 
         if (!$this->apiKey) {
-            return new LlmResponse(null, new GeminiError("GEMINI_API_KEY is not set"));
+            return new LlmResponse(null, new GeminiError(['message'=>'GEMINI_API_KEY is not set']));
         }
 
-        $url = NotSecrets::GEMINI_API_URL . '?key=' . $this->apiKey;
+        $url = NotSecrets::GEMINI_API_URL;
 
         $input = [['text' => $request->prompt(), 'type' => 'text']];
 
@@ -71,7 +71,8 @@ class GeminiAdapter implements LlmAdapter
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Api-Revision: 2026-05-20'
+            'Api-Revision: 2026-05-20',
+            'x-goog-api-key: ' . $this->apiKey
         ]);
 
         $result = curl_exec($ch);
@@ -80,11 +81,14 @@ class GeminiAdapter implements LlmAdapter
         curl_close($ch);
 
         if ($result === false) {
-            return new LlmResponse(null, new GeminiError("Curl error: " . $error));
+            return new LlmResponse(null, new GeminiError([
+                'message' => 'Curl error: ' .$error,
+                'code' => $httpCode,
+            ]));
         }
 
         if ($httpCode >= 400) {
-            return new LlmResponse(null, new GeminiError("API error (HTTP $httpCode): " . $result));
+            return new LlmResponse(null, GeminiError::fromJson($result));
         }
 
         try {
@@ -95,7 +99,7 @@ class GeminiAdapter implements LlmAdapter
             return new LlmResponse($text);
             
         } catch (\Exception $e) {
-            return new LlmResponse(null, new GeminiError("Mapping error: " . $e->getMessage()));
+            return new LlmResponse(null, new GeminiError(['message' => 'Mapping error: ' . $e->getMessage()]));
         }
     }
 }

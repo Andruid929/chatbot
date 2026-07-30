@@ -48,7 +48,7 @@ function main() {
             break;
     }
 
-    //Uncomment the line below and set an absolute path to an image file to add an attachment to send to the model
+    // Uncomment the line below and set an absolute path to an image file to add an attachment to send to the model
     // $request->addAttachment(FileReader::readFile('/home/andrew/Pictures/Screenshots/Terminal shot.png'));
 
     if ($adapter && $request) {
